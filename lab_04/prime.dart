@@ -8,14 +8,14 @@ void main() {
   stdout.write('Enter number to find if it is prime or not: ');
   int n = int.parse(stdin.readLineSync()!);
 
-  if (isPrime(n) == 1) {
+  if (isPrime(n:n) == 1) {
     print('$n is prime number');
   } else {
     print('$n is not prime number');
   }
 }
 
-int isPrime(int n) {
+int isPrime({required int n}) {
   for (int i = 2; i <= sqrt(n); i++) {
     if (n % i == 0) {
       return 0;
