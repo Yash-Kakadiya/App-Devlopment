@@ -27,51 +27,38 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         backgroundColor: AppColors.primary,
       ),
-      body: Container(
-        color: AppColors.background,
+      body: SizedBox(
+        width: 500,
         child: Padding(
           padding: const EdgeInsets.all(10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: GridView.count(
+            crossAxisCount: 2,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _dashBoardBtn(
-                    btnName: 'Add User',
-                    icon: Icons.person_add,
-                    screen: const AddUserScreen(),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _dashBoardBtn(
-                    btnName: 'User List',
-                    icon: Icons.list_alt,
-                    screen: const UserListScreen(),
-                  )
-                ],
+              dashBoardBtn(
+                btnName: 'Add User',
+                icon: Icons.person_add,
+                iconColor: Colors.blue,
+                screen: const AddUserScreen(),
               ),
-              const SizedBox(
-                height: 20,
+              dashBoardBtn(
+                btnName: 'User List',
+                icon: Icons.list_alt,
+                iconColor: Colors.greenAccent,
+                screen: const UserListScreen(),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _dashBoardBtn(
-                    btnName: 'Favourite',
-                    icon: Icons.favorite,
-                    screen: const FavouriteUserScreen(),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _dashBoardBtn(
-                    btnName: 'About Us',
-                    icon: Icons.menu_book,
-                    screen: const AboutUsScreen(),
-                  )
-                ],
+              dashBoardBtn(
+                btnName: 'Favourite',
+                icon: Icons.favorite,
+                iconColor: Colors.red,
+                screen: const FavouriteUserScreen(),
+              ),
+              dashBoardBtn(
+                btnName: 'About Us',
+                icon: Icons.menu_book,
+                iconColor: Colors.orange,
+                screen: const AboutUsScreen(),
               ),
             ],
           ),
@@ -80,53 +67,48 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget _dashBoardBtn({
+  Widget dashBoardBtn({
     required String btnName,
     required IconData icon,
+    required Color iconColor,
     required Widget screen,
   }) {
-    return Container(
-      height: 100,
-      decoration: BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.circular(30.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            offset: const Offset(0, 4),
-            blurRadius: 6,
-          ),
-        ],
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        elevation: 7,
+        padding: const EdgeInsets.all(10),
       ),
-      child: InkWell(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
+      onPressed: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
               builder: (context) => screen,
             ));
-          },
-          style: const ButtonStyle(
-            backgroundColor: WidgetStatePropertyAll(AppColors.secondary),
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            size: 50,
+            color: iconColor,
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                size: 40,
-                color: AppColors.accent,
-              ),
-              Text(
-                btnName,
-                style: const TextStyle(
-                  fontSize: 20,
-                  color: AppColors.cardBackground,
-                  fontWeight: FontWeight.bold,
-                ),
-              )
-            ],
+          const SizedBox(
+            height: 7,
           ),
-        ),
+          Text(
+            btnName,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+        ],
       ),
     );
   }

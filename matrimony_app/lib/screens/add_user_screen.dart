@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:matrimony_app/utils/components.dart';
 import '../utils/app_colors.dart';
+import '../utils/string_const.dart';
 import '../utils/user_model.dart';
 
 class AddUserScreen extends StatefulWidget {
@@ -12,8 +13,6 @@ class AddUserScreen extends StatefulWidget {
 
 class _AddUserScreenState extends State<AddUserScreen> {
   GlobalKey<FormState> formKey = GlobalKey();
-
-  UserModel userModelObj = UserModel();
 
   List<String> citiesList = [
     'Rajkot',
@@ -58,7 +57,10 @@ class _AddUserScreenState extends State<AddUserScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: Components.getAppBar(icon: Icons.person_add, title: 'Add User'),
+        appBar: Components.getAppBar(
+          icon: Icons.person_add,
+          title: 'Add User',
+        ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(15),
           child: Form(
@@ -217,6 +219,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
                         ),
                       );
                       dob = '${date!.day}-${date!.month}-${date!.year}';
+                      setState(() {});
                     },
                     child: Container(
                       padding: const EdgeInsets.all(10),
@@ -420,6 +423,19 @@ class _AddUserScreenState extends State<AddUserScreen> {
   void saveForm() {
     if (formKey.currentState!.validate()) {
       print('Form Saved');
+      UserModel.addUser(
+        name: fullNameController.text,
+        email: emailController.text,
+        password: passwordController.text,
+        mobile: mobileController.text,
+        dob: dob,
+        age: '18',
+        city: cityController!,
+        gender: genderController!,
+        hobbies: hobbies,
+      );
+      print(UserModel.getUserList());
+      resetForm();
     }
   }
 
@@ -469,8 +485,12 @@ class _AddUserScreenState extends State<AddUserScreen> {
   }
 
   bool isUserRegistered(String value) {
-    List userList = userModelObj.getUserList();
-    userList.contains(value);
-    return true;
+    var userList = UserModel.userList;
+    for (int i = 0; i < userList.length; i++) {
+      if (userList[i][MOBILE] == value) {
+        return true;
+      }
+    }
+    return false;
   }
 }
