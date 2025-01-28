@@ -9,7 +9,7 @@ class Components {
         children: [
           Icon(
             icon,
-            size: 40,
+            size: 25,
             weight: 400,
             color: AppColors.textDark,
           ),
@@ -19,7 +19,7 @@ class Components {
           Text(
             title,
             style: const TextStyle(
-              fontSize: 40,
+              fontSize: 25,
               fontWeight: FontWeight.bold,
               color: AppColors.textDark,
             ),

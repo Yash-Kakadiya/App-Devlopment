@@ -32,7 +32,7 @@ class UserModel {
         'Reading 📖',
         'Music 📻',
       ],
-      ISFAVORITE: true,
+      ISFAVORITE: false,
     },
   ];
 

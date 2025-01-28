@@ -31,7 +31,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
     'Dancing 🕺',
     'Cooking 🧑‍🍳',
   ];
-  String dob = 'Select Date of birth';
+  String dob = '';
   DateTime? date = DateTime.now();
 
   TextEditingController fullNameController = TextEditingController();
@@ -39,7 +39,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
-  String? dateController;
+  TextEditingController dateController = TextEditingController();
   String? cityController;
   String? genderController = 'male';
   List<bool> hobbiesController = [
@@ -71,15 +71,16 @@ class _AddUserScreenState extends State<AddUserScreen> {
                     controller: fullNameController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Enter a valid full name (3-50 characters, alphabets only) 😇';
+                        return 'Enter valid name (3-50 characters, alphabets only) 😇';
                       }
                       var regex = RegExp(r"^[a-zA-Z\s'-]{3,50}$");
 
                       if (!regex.hasMatch(value)) {
-                        return 'Enter a valid full name (3-50 characters, alphabets only) 😇';
+                        return 'Enter a valid full name \n (3-50 characters, alphabets only) 😇';
                       }
                       return null;
                     },
+                    keyboardType: TextInputType.name,
                     decoration: InputDecoration(
                       labelText: '🙂 Full Name',
                       hintText: 'Enter Full Name 🙃',
@@ -92,6 +93,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
                     height: 20,
                   ),
                   TextFormField(
+                    keyboardType: TextInputType.emailAddress,
                     controller: emailController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -181,6 +183,8 @@ class _AddUserScreenState extends State<AddUserScreen> {
                     height: 20,
                   ),
                   TextFormField(
+                    maxLength: 10,
+                    keyboardType: TextInputType.number,
                     controller: mobileController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -206,12 +210,12 @@ class _AddUserScreenState extends State<AddUserScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  InkWell(
+                  TextFormField(
                     onTap: () async {
                       date = await showDatePicker(
                         context: context,
                         initialDate: date,
-                        firstDate: DateTime(1945),
+                        firstDate: DateTime(date!.year - 80),
                         lastDate: DateTime(
                           DateTime.now().year,
                           DateTime.now().month,
@@ -219,32 +223,38 @@ class _AddUserScreenState extends State<AddUserScreen> {
                         ),
                       );
                       dob = '${date!.day}-${date!.month}-${date!.year}';
-                      setState(() {});
+                      setState(() {
+                        dateController.text=dob;
+                      });
                     },
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
+                    readOnly: true,
+                    mouseCursor: MouseCursor.defer,
+                    keyboardType: TextInputType.datetime,
+                    showCursor: true,
+                    controller: dateController,
+                    validator: (value) {
+                      if (value == null ||
+                          value.isEmpty ||
+                          value == '🗓️ Select Date of birth') {
+                        return 'Select your date of birth 😇';
+                      }
+
+                      int age = DateTime.now().year - date!.year;
+                      if (DateTime.now().month < date!.month ||
+                          (DateTime.now().month == date!.month &&
+                              DateTime.now().day < date!.day)) {
+                        age--;
+                      }
+                      if (age < 18) {
+                        return 'You must be at least 18 years old to register.';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      label: const Text('🗓️ Date of birth'),
+                      hintText: 'Select your date of birth 🙃',
+                      border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.grey),
-                      ),
-                      child: Row(
-                        children: [
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.calendar_month,
-                                color: Colors.grey,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                dob,
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                            ],
-                          ),
-                        ],
                       ),
                     ),
                   ),
@@ -300,50 +310,36 @@ class _AddUserScreenState extends State<AddUserScreen> {
                         const SizedBox(
                           width: 50,
                         ),
-                        RadioMenuButton(
-                          value: 'male',
-                          groupValue: genderController,
-                          onChanged: (value) {
-                            setState(() {
-                              genderController = value!;
-                            });
-                          },
-                          child: const Text(
-                            '🧔‍♂️ Male',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        RadioMenuButton(
-                          value: 'female',
-                          groupValue: genderController,
-                          onChanged: (value) {
-                            setState(() {
-                              genderController = value!;
-                            });
-                          },
-                          child: const Text(
-                            '👩‍🦰 Female',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        RadioMenuButton(
-                          value: 'others',
-                          groupValue: genderController,
-                          onChanged: (value) {
-                            setState(() {
-                              genderController = value!;
-                            });
-                          },
-                          child: const Text(
-                            '😶 Others',
-                            style: TextStyle(fontSize: 16),
-                          ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RadioMenuButton(
+                              value: 'male',
+                              groupValue: genderController,
+                              onChanged: (value) {
+                                setState(() {
+                                  genderController = value!;
+                                });
+                              },
+                              child: const Text(
+                                '🧔‍♂️ Male',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                            RadioMenuButton(
+                              value: 'female',
+                              groupValue: genderController,
+                              onChanged: (value) {
+                                setState(() {
+                                  genderController = value!;
+                                });
+                              },
+                              child: const Text(
+                                '👩‍🦰 Female',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -367,7 +363,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
                           style: TextStyle(fontSize: 16),
                         ),
                         const SizedBox(
-                          width: 50,
+                          width: 45,
                         ),
                         getHobbiesList(),
                       ],
@@ -428,7 +424,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
         email: emailController.text,
         password: passwordController.text,
         mobile: mobileController.text,
-        dob: dob,
+        dob: dob!,
         age: '18',
         city: cityController!,
         gender: genderController!,

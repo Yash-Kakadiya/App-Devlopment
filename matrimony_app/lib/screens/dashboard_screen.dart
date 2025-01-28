@@ -20,7 +20,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         title: const Text(
           '💑‍ Matrimonial homepage 👨‍👩‍👧‍👦',
           style: TextStyle(
-            fontSize: 40,
+            fontSize:25,
             fontWeight: FontWeight.bold,
             color: AppColors.textDark,
           ),

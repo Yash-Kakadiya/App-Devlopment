@@ -22,7 +22,7 @@ class UserListScreen extends StatelessWidget {
 
   Widget getUserListView() {
     return ListView.builder(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       itemCount: UserModel.userList.length,
       itemBuilder: (context, index) {
         var user = UserModel.userList[index];
@@ -51,46 +51,64 @@ class UserListScreen extends StatelessWidget {
       ),
       elevation: 7,
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             rowOfCard(
               icon: Icons.person,
               iconColor: Colors.blue,
+              field: NAME,
               data: user[NAME],
             ),
-            SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             rowOfCard(
               icon: Icons.location_city,
               iconColor: Colors.orangeAccent,
+              field: CITY,
               data: user[CITY],
             ),
-            SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             rowOfCard(
               icon: Icons.mail,
               iconColor: Colors.red,
+              field: EMAIL,
               data: user[EMAIL],
             ),
-            SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             rowOfCard(
               icon: Icons.phone_android,
               iconColor: Colors.black,
+              field: MOBILE,
               data: user[MOBILE],
             ),
-            SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             rowOfCard(
-              icon: user[GENDER]=='male'?Icons.male:Icons.female,
+              icon: user[GENDER] == 'male' ? Icons.male : Icons.female,
               iconColor: Colors.red,
+              field: GENDER,
               data: user[GENDER],
             ),
-            SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             rowOfCard(
               icon: Icons.emoji_emotions_rounded,
               iconColor: Colors.yellow,
+              field: AGE,
               data: user[AGE],
             ),
-            SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
           ],
         ),
       ),
@@ -98,13 +116,24 @@ class UserListScreen extends StatelessWidget {
   }
 
   Widget rowOfCard(
-      {required IconData icon, required Color iconColor, required data}) {
+      {required IconData icon,
+      required Color iconColor,
+      required field,
+      required data}) {
     return Row(
       children: [
         Icon(
           icon,
           size: 20,
           color: iconColor,
+        ),
+        const SizedBox(width: 10),
+        Text(
+          field+': ',
+          style: const TextStyle(
+            fontSize: 16,
+            color: AppColors.textDark, // Dark text color
+          ),
         ),
         const SizedBox(width: 10),
         Text(
