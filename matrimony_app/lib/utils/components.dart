@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:matrimony_app/utils/string_const.dart';
 
 import 'app_colors.dart';
 
@@ -29,4 +30,5 @@ class Components {
       backgroundColor: AppColors.primary,
     );
   }
+
 }

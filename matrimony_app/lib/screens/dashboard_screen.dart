@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../utils/app_colors.dart';
-import './add_user_screen.dart';
+import './add_edit_user_screen.dart';
 import './user_list_screen.dart';
 import './about_us_screen.dart';
 import './favourite_user_screen.dart';
@@ -40,7 +40,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 btnName: 'Add User',
                 icon: Icons.person_add,
                 iconColor: Colors.blue,
-                screen: const AddUserScreen(),
+                screen:  AddEditUserScreen(),
               ),
               dashBoardBtn(
                 btnName: 'User List',
