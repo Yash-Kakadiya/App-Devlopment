@@ -223,15 +223,18 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
           ),
         ),
         const SizedBox(width: 10),
-        Wrap(children: [
-          Text(
+        Expanded(
+          child: Text(
             data ?? 'null',
+            maxLines: 2,
+            // softWrap: true,
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               fontSize: 16,
               color: AppColors.textDark, // Dark text color
             ),
           ),
-        ]),
+        ),
       ],
     );
   }

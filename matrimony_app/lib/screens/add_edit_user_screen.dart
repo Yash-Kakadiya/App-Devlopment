@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:matrimony_app/utils/components.dart';
+import 'package:intl/intl.dart';
 import '../utils/app_colors.dart';
 import '../utils/string_const.dart';
 import '../utils/user_model.dart';
@@ -391,36 +391,37 @@ class _AddEditUserScreenState extends State<AddEditUserScreen> {
 
   Widget getDateField() {
     return TextFormField(
-      mouseCursor: MouseCursor.defer,
+      readOnly: true,
       keyboardType: TextInputType.datetime,
-      showCursor: true,
       controller: dateController,
+
       onTap: () async {
-        date = await showDatePicker(
+        DateTime today = DateTime.now();
+        DateTime firstDate = DateTime(today.year - 80, today.month, today.day);
+        DateTime lastDate = DateTime(today.year - 18, today.month, today.day);
+
+        DateTime? pickedDate = await showDatePicker(
           context: context,
-          initialDate: date ?? DateTime.now(),
-          firstDate: DateTime(date!.year - 80),
-          lastDate: DateTime(
-            DateTime.now().year,
-            DateTime.now().month,
-            DateTime.now().day,
-          ),
+          firstDate: firstDate,
+          lastDate: lastDate,
+          initialDate: dateController.text.isEmpty?lastDate:DateFormat('dd/mm/yyyy').parse(dateController.text),
         );
-        dob = '${date!.day}-${date!.month}-${date!.year}';
-        setState(() {
-          dateController.text = dob;
-        });
+        if (pickedDate != null) {
+          setState(() {
+            dateController.text = DateFormat('dd/MM/yyyy').format(pickedDate);
+          });
+        }
       },
       validator: (value) {
         if (value == null ||
             value.isEmpty ||
             value == '🗓️ Select Date of birth') {
-          return 'Select your date of birth 😇';
+          return 'Select your date of birth';
         }
         if (value.length < 8) {
-          return 'Maybe date format not supported 😇';
+          return 'Maybe date format not supported';
         }
-        List<String> parts = dateController.text.split('-');
+        List<String> parts = dateController.text.split('/');
         int day = int.parse(parts[0]);
         int month = int.parse(parts[1]);
         int year = int.parse(parts[2]);
@@ -439,7 +440,7 @@ class _AddEditUserScreenState extends State<AddEditUserScreen> {
       },
       decoration: InputDecoration(
         label: const Text('🗓️ Date of birth'),
-        hintText: 'Select your date of birth 🙃',
+        hintText: 'Select your date of birth',
         suffixIcon: const Icon(Icons.calendar_month),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),

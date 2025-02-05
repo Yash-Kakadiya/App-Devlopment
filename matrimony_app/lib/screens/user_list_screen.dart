@@ -15,39 +15,86 @@ class UserListScreen extends StatefulWidget {
 }
 
 class _UserListScreenState extends State<UserListScreen> {
+  List<dynamic> filteredUsers = [];
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    filteredUsers = UserModel.userList;
+  }
+
+  void filterUsers(String searchTxt) {
+    searchTxt = searchTxt.toLowerCase();
+    setState(() {
+      filteredUsers = UserModel.userList
+          .where((user) =>
+              user[NAME].toLowerCase().contains(searchTxt) ||
+              user[CITY].toLowerCase().contains(searchTxt) ||
+              user[EMAIL].toLowerCase().contains(searchTxt) ||
+              user[MOBILE].contains(searchTxt) ||
+              user[AGE].contains(searchTxt))
+          .toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    setState(() {});
+    // setState(() {});
     return Scaffold(
       appBar: Components.getAppBar(
         icon: Icons.list_alt,
         title: 'User List',
       ),
-      body: getUserListView(),
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: TextField(
+              controller: searchController,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search, color: AppColors.textDark),
+                hintText: ' Search user... 🙂',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: const BorderSide(color: Colors.redAccent),
+                ),
+              ),
+              onChanged: filterUsers,
+            ),
+          ),
+          getUserListView(),
+        ],
+      ),
     );
   }
 
   Widget getUserListView() {
-    return ListView.builder(
-      padding: const EdgeInsets.all(10),
-      itemCount: UserModel.userList.length,
-      itemBuilder: (context, idx) {
-        var user = UserModel.userList[idx];
-        return GestureDetector(
-          onTap: () async {
-            await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => UserDetailScreen(
-                  id: idx,
+    return Expanded(
+      child: ListView.builder(
+        padding: const EdgeInsets.all(10),
+        itemCount: filteredUsers.length,
+        itemBuilder: (context, idx) {
+          var user = filteredUsers[idx];
+          return GestureDetector(
+            onTap: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserDetailScreen(
+                    id: UserModel.userList.indexOf(user),
+                  ),
                 ),
-              ),
-            );
-            setState(() {});
-          },
-          child: getCardView(user: user, idx: idx),
-        );
-      },
+              );
+              setState(() {});
+            },
+            child: getCardView(user: user, idx: idx),
+          );
+        },
+      ),
     );
   }
 
@@ -196,12 +243,14 @@ class _UserListScreenState extends State<UserListScreen> {
           ),
         ),
         const SizedBox(width: 10),
-        Text(
-          data ?? 'null',
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            fontSize: 16,
-            color: AppColors.textDark, // Dark text color
+        Expanded(
+          child: Text(
+            data ?? 'null',
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              fontSize: 16,
+              color: AppColors.textDark, // Dark text color
+            ),
           ),
         ),
       ],

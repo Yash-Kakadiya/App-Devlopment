@@ -4,7 +4,7 @@ class UserModel {
   static List<Map<String, dynamic>> userList = [
     {
       NAME: 'Prof. Mehul Bhundiya',
-      EMAIL: 'mehul@du.ac.in',
+      EMAIL: 'mehul.bhundiya@darshan.ac.in',
       PASSWORD: 'Mehul@123',
       MOBILE: '9428231065',
       DOB: '1-12-2000',
@@ -125,7 +125,7 @@ class UserModel {
     user[AGE] = age;
     user[CITY] = city;
     user[GENDER] = gender;
-    user[HOBBIES] = hobbies;
+    user[HOBBIES] = hobbies.map((hobby) => List.from(hobby)).toList();
     user[ISFAVORITE] = isFavorite;
     userList.add(user);
     print('User Added: $user');
