@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:matrimony_app/utils/components.dart';
 
-import '../utils/app_colors.dart';
+import '../core/app_colors.dart';
+import 'dashboard_screen.dart';
 
-class AboutUsScreen extends StatelessWidget {
-  const AboutUsScreen({super.key});
+class AboutUsScreen extends StatefulWidget {
+  AboutUsScreen({super.key});
 
+  @override
+  State<AboutUsScreen> createState() => _AboutUsScreenState();
+}
+
+class _AboutUsScreenState extends State<AboutUsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Components.getAppBar(icon: Icons.menu_book, title: 'About Us'),
+      drawer: Components.getDrawer(context: context),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -24,7 +30,7 @@ class AboutUsScreen extends StatelessWidget {
                   shape: BoxShape.circle, // Make the container circular
                   image: DecorationImage(
                     image: AssetImage(
-                      'assets/images/profile_gif.gif',
+                      'assets/images/ma_about_us.gif',
                     ),
                     fit:
                         BoxFit.cover, // Ensure the image fits within the circle
@@ -40,6 +46,7 @@ class AboutUsScreen extends StatelessWidget {
               "Yash Kakadiya",
               style: TextStyle(
                 color: Colors.orange,
+                fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
             )),
@@ -55,14 +62,22 @@ class AboutUsScreen extends StatelessWidget {
                     vertical: 8,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.accent,
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Colors.pinkAccent,
+                        AppColors.secondary,
+                        Colors.white,
+                      ],
+                    ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Text(
                     "Meet Our Team",
                     style: TextStyle(
                       fontSize: 18,
-                      color: AppColors.textDark,
+                      color: AppColors.lightText,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -73,7 +88,7 @@ class AboutUsScreen extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
                 side: const BorderSide(
-                  color: AppColors.accent,
+                  color: AppColors.secondary,
                   width: 2,
                 ),
               ),
@@ -93,7 +108,7 @@ class AboutUsScreen extends StatelessWidget {
                             "Developed By:",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Colors.deepOrange,
+                              color: AppColors.primary,
                             ),
                           ),
                         ),
@@ -115,7 +130,7 @@ class AboutUsScreen extends StatelessWidget {
                             "Mentored By:",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.deepOrange),
+                                color: AppColors.primary),
                           ),
                         ),
                         Expanded(
@@ -136,7 +151,7 @@ class AboutUsScreen extends StatelessWidget {
                             "Explored By:",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.deepOrange),
+                                color: AppColors.primary),
                           ),
                         ),
                         Expanded(
@@ -157,7 +172,7 @@ class AboutUsScreen extends StatelessWidget {
                             "Eulogized By:",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.deepOrange),
+                                color: AppColors.primary),
                           ),
                         ),
                         Expanded(
@@ -181,14 +196,22 @@ class AboutUsScreen extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   decoration: BoxDecoration(
-                    color: AppColors.accent,
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Colors.pinkAccent,
+                        AppColors.secondary,
+                        Colors.white,
+                      ],
+                    ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Text(
                     "About ASWDC",
                     style: TextStyle(
                       fontSize: 18,
-                      color: AppColors.textDark,
+                      color: AppColors.lightText,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -199,7 +222,7 @@ class AboutUsScreen extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
                 side: const BorderSide(
-                  color: AppColors.accent,
+                  color: AppColors.secondary,
                   width: 2,
                 ),
               ),
@@ -213,7 +236,7 @@ class AboutUsScreen extends StatelessWidget {
                       children: [
                         Expanded(
                             child: Image.asset(
-                          'assets/images/darshanlogo-removebg-preview.png',
+                          'assets/images/du_logo.png',
                           height: 180,
                           width: 180,
                         )),
@@ -272,14 +295,22 @@ class AboutUsScreen extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   decoration: BoxDecoration(
-                    color: AppColors.accent,
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Colors.pinkAccent,
+                        AppColors.secondary,
+                        Colors.white,
+                      ],
+                    ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Text(
                     "Contact Us",
                     style: TextStyle(
                       fontSize: 18,
-                      color: AppColors.textDark,
+                      color: AppColors.lightText,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -291,7 +322,7 @@ class AboutUsScreen extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
                 side: const BorderSide(
-                  color: AppColors.accent,
+                  color: AppColors.secondary,
                   width: 2,
                 ),
               ),
@@ -305,7 +336,7 @@ class AboutUsScreen extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.email_outlined,
-                              color: AppColors.accent,
+                              color: AppColors.primary,
                             )
                           ],
                         ),
@@ -330,7 +361,7 @@ class AboutUsScreen extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.phone_outlined,
-                              color: AppColors.accent,
+                              color: AppColors.primary,
                             )
                           ],
                         ),
@@ -355,7 +386,7 @@ class AboutUsScreen extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.blur_circular_outlined,
-                              color: AppColors.accent,
+                              color: AppColors.primary,
                             )
                           ],
                         ),
@@ -380,7 +411,7 @@ class AboutUsScreen extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
                 side: const BorderSide(
-                  color: AppColors.accent,
+                  color: AppColors.secondary,
                   width: 2,
                 ),
               ),
@@ -394,7 +425,7 @@ class AboutUsScreen extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.share_outlined,
-                              color: AppColors.accent,
+                              color: AppColors.primary,
                             )
                           ],
                         ),
@@ -419,7 +450,7 @@ class AboutUsScreen extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.apps,
-                              color: AppColors.accent,
+                              color: AppColors.primary,
                             )
                           ],
                         ),
@@ -444,7 +475,7 @@ class AboutUsScreen extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.star_border,
-                              color: AppColors.accent,
+                              color: AppColors.primary,
                             )
                           ],
                         ),
@@ -469,7 +500,7 @@ class AboutUsScreen extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.thumb_up_alt_outlined,
-                              color: AppColors.accent,
+                              color: AppColors.primary,
                             )
                           ],
                         ),
@@ -494,7 +525,7 @@ class AboutUsScreen extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.update,
-                              color: AppColors.accent,
+                              color: AppColors.primary,
                             )
                           ],
                         ),
