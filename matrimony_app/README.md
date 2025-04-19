@@ -1,16 +1,37 @@
-# matrimony_app
+# HeartLink.net 💞
 
-This application can be used by a single person/matrimonial service company for matrimonial business to maintain records in an electronic format. The owner of the matrimonial service company will use this application to replace pen & paper with this flutter mobile application.
+## 💍 Matrimony App (Flutter)
 
-## Getting Started
+A modern mobile application built with Flutter designed to **digitize and simplify the matrimonial business**. For an individual managing matches this app helps replace traditional pen-and-paper records with an elegant and efficient mobile solution.
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## 🚀 Features
+
+- 📇 Digital record-keeping of profiles
+- 🔍 Easy profile search & filter
+- 🧠 Smart design to manage large data efficiently
+- 💡 Built using Flutter for cross-platform performance
+
+---
+
+## 🧠 Notes
+
+- 📝 Code is documented with comments generated using AI assistance (ChatGPT).
+-❗ Some of these comments may not be entirely accurate — always cross-check with the actual logic when in doubt.
+
+---
+
+## 📚 Resources
+
+New to Flutter? Start here:
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- For help getting started with Flutter development, view the [online documentation](https://docs.flutter.dev/), which offers tutorials, samples, guidance on mobile development, and a full API reference.
+
+---
+
+## 👨‍💻 Author
+## Made with 🧡 by Yash
